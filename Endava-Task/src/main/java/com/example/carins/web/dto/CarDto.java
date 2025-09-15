@@ -9,4 +9,5 @@ public record CarDto(
         Long ownerId,
         String ownerName,
         String ownerEmail
-) {}
+) {
+}

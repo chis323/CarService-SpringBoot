@@ -8,4 +8,5 @@ public record InsuranceClaimDto(
         String description,
         BigDecimal amount
 
-){}
+) {
+}

@@ -37,5 +37,6 @@ public class CarController {
                 o != null ? o.getEmail() : null);
     }
 
-    public record InsuranceValidityResponse(Long carId, String date, boolean valid) {}
+    public record InsuranceValidityResponse(Long carId, String date, boolean valid) {
+    }
 }

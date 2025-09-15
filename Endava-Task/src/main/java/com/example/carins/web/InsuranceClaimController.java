@@ -35,8 +35,8 @@ public class InsuranceClaimController {
     }
 
     @GetMapping("{carId}/history")
-        public ResponseEntity<List<CarHistoryDto>> getClaimHistory(@PathVariable Long carId) {
-        List<CarHistoryDto> history =insuranceClaimService.getCarHistory(carId);
+    public ResponseEntity<List<CarHistoryDto>> getClaimHistory(@PathVariable Long carId) {
+        List<CarHistoryDto> history = insuranceClaimService.getCarHistory(carId);
         return ResponseEntity.ok(history);
     }
 }

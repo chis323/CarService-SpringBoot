@@ -4,8 +4,8 @@ import com.example.carins.mapper.InsuranceClaimMapper;
 import com.example.carins.model.InsuranceClaim;
 import com.example.carins.repo.InsuranceClaimRepository;
 import com.example.carins.repo.InsurancePolicyRepository;
-import com.example.carins.web.dto.EventType;
 import com.example.carins.web.dto.CarHistoryDto;
+import com.example.carins.web.dto.EventType;
 import com.example.carins.web.dto.InsuranceClaimDto;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +30,8 @@ public class InsuranceClaimService {
     @Autowired
     private final CarService carService;
 
-   @Autowired
-   private final InsuranceClaimMapper insuranceClaimMapper;
+    @Autowired
+    private final InsuranceClaimMapper insuranceClaimMapper;
 
     private void validateDto(InsuranceClaimDto dto) {
         if (dto.claimDate() == null) {
@@ -44,31 +44,29 @@ public class InsuranceClaimService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Amount is required and it must be positive");
         }
     }
-    public InsuranceClaim addClaim(Long carId, InsuranceClaimDto dto)
-    {
+
+    public InsuranceClaim addClaim(Long carId, InsuranceClaimDto dto) {
         validateDto(dto);
-        InsuranceClaim claim = insuranceClaimMapper.toEntity(carId,dto);
+        InsuranceClaim claim = insuranceClaimMapper.toEntity(carId, dto);
         return claimRepository.save(claim);
     }
 
-    public InsuranceClaim getClaim(Long carId, Long claimId)
-    {
+    public InsuranceClaim getClaim(Long carId, Long claimId) {
         return claimRepository.findById(claimId)
                 .filter(c -> c.getCar().getId().equals(carId))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Claim not found for car " + carId));
     }
 
-    public List<CarHistoryDto> getCarHistory(Long carId)
-    {
+    public List<CarHistoryDto> getCarHistory(Long carId) {
         carService.getcarById(carId);
         List<CarHistoryDto> carHistoryDtos = new ArrayList<>();
         claimRepository.findByCarId(carId)
                 .forEach(claim -> carHistoryDtos.add(new CarHistoryDto(
-                        EventType.InsuranceClaim,claim.getClaimDate(), claim.getDescription(), claim.getAmount()
+                        EventType.InsuranceClaim, claim.getClaimDate(), claim.getDescription(), claim.getAmount()
                 )));
         policyRepository.findByCarId(carId)
                 .forEach(policy -> carHistoryDtos.add(new CarHistoryDto(
-                        EventType.InsurancePolicy,policy.getStartDate(),policy.getProvider(),null
+                        EventType.InsurancePolicy, policy.getStartDate(), policy.getProvider(), null
                 )));
         carHistoryDtos.sort(Comparator.comparing(CarHistoryDto::date));
         return carHistoryDtos;

@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface InsuranceClaimRepository  extends JpaRepository<InsuranceClaim,Long> {
+public interface InsuranceClaimRepository extends JpaRepository<InsuranceClaim, Long> {
     List<InsuranceClaim> findByCarId(Long insuranceId);
 }

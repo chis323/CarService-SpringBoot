@@ -8,4 +8,5 @@ public record CarHistoryDto(
         LocalDate date,
         String description,
         BigDecimal amount
-){}
+) {
+}

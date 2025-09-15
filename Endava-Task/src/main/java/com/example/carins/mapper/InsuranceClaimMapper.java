@@ -15,7 +15,7 @@ public class InsuranceClaimMapper {
     private final CarService carService;
 
     public InsuranceClaim toEntity(Long cardId, InsuranceClaimDto dto) {
-        Car car=carService.getcarById(cardId);
-        return new  InsuranceClaim(car, dto.claimDate(), dto.description(), dto.amount());
+        Car car = carService.getcarById(cardId);
+        return new InsuranceClaim(car, dto.claimDate(), dto.description(), dto.amount());
     }
 }

@@ -38,8 +38,7 @@ public class CarService {
         return policyRepository.existsActiveOnDate(carId, localDate);
     }
 
-    public Car getcarById(Long id)
-    {
+    public Car getcarById(Long id) {
         return carRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Car with ID " + id + " not found"));
     }
